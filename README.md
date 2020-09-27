@@ -37,13 +37,13 @@ kubectl expose deployment hello-server \
           
 Task 3: Create an HTTP(s) Load Balancer in front of two web servers.
 
-cat << EOF > startup.sh
-#! /bin/bash
-apt-get update
-apt-get install -y nginx
-service nginx start
-sed -i -- 's/nginx/Google Cloud Platform - '"\$HOSTNAME"'/' /var/www/html/index.nginx-debian.html
-EOF
+          cat << EOF > startup.sh
+          #! /bin/bash
+          apt-get update
+          apt-get install -y nginx
+          service nginx start
+          sed -i -- 's/nginx/Google Cloud Platform - '"\$HOSTNAME"'/' /var/www/html/index.nginx-debian.html
+          EOF
 
 gcloud compute instance-templates create web-server-template \
           --metadata-from-file startup-script=startup.sh \
