@@ -15,14 +15,14 @@ gcloud container clusters create nucleus-backend \
           --num-nodes 1 \    
           --network nucleus-vpc \    
           --region us-east1 
-gcloud container clusters get-credentials nucleus-backend \
+gcloud container clusters get-credentials nucleus-backend \   
           --region us-east1
 
-kubectl create deployment hello-server \
+kubectl create deployment hello-server \    
           --image=gcr.io/google-samples/hello-app:2.0
 
-kubectl expose deployment hello-server \
-          --type=LoadBalancer \
+kubectl expose deployment hello-server \    
+          --type=LoadBalancer \   
           --port 8080
           
     
@@ -38,51 +38,51 @@ Task 3: Create an HTTP(s) Load Balancer in front of two web servers.
           EOF
 
 1 .Create an instance template :
-gcloud compute instance-templates create web-server-template \
-          --metadata-from-file startup-script=startup.sh \
-          --network nucleus-vpc \
-          --machine-type g1-small \
+gcloud compute instance-templates create web-server-template \    
+          --metadata-from-file startup-script=startup.sh \    
+          --network nucleus-vpc \   
+          --machine-type g1-small \   
           --region us-east1
 
 3 .Create a managed instance group :
-gcloud compute instance-groups managed create web-server-group \
-          --base-instance-name web-server \
-          --size 2 \
-          --template web-server-template \
+gcloud compute instance-groups managed create web-server-group \    
+          --base-instance-name web-server \   
+          --size 2 \    
+          --template web-server-template \    
           --region us-east1
 
 4 .Create a firewall rule to allow traffic (80/tcp) :
-gcloud compute firewall-rules create web-server-firewall \
-          --allow tcp:80 \
+gcloud compute firewall-rules create web-server-firewall \    
+          --allow tcp:80 \    
           --network nucleus-vpc
           
 5 .Create a health check :          
 gcloud compute http-health-checks create http-basic-check
 
-gcloud compute instance-groups managed \
-          set-named-ports web-server-group \
-          --named-ports http:80 \
+gcloud compute instance-groups managed \    
+          set-named-ports web-server-group \    
+          --named-ports http:80 \   
           --region us-east1
 6 .Create a backend service and attach the manged instance group :
-gcloud compute backend-services create web-server-backend \
-          --protocol HTTP \
-          --http-health-checks http-basic-check \
+gcloud compute backend-services create web-server-backend \   
+          --protocol HTTP \   
+          --http-health-checks http-basic-check \   
           --global
-gcloud compute backend-services add-backend web-server-backend \
-          --instance-group web-server-group \
-          --instance-group-region us-east1 \
+gcloud compute backend-services add-backend web-server-backend \    
+          --instance-group web-server-group \   
+          --instance-group-region us-east1 \    
           --global
 7 .Create a URL map and target HTTP proxy to route requests to your URL map :
-gcloud compute url-maps create web-server-map \
+gcloud compute url-maps create web-server-map \   
           --default-service web-server-backend
           
-gcloud compute target-http-proxies create http-lb-proxy \
+gcloud compute target-http-proxies create http-lb-proxy \   
           --url-map web-server-map
           
 8 .Create a forwarding rule :
-gcloud compute forwarding-rules create http-content-rule \
-        --global \
-        --target-http-proxy http-lb-proxy \
+gcloud compute forwarding-rules create http-content-rule \    
+        --global \    
+        --target-http-proxy http-lb-proxy \   
         --ports 80
 gcloud compute forwarding-rules list
 
