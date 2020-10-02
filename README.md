@@ -11,10 +11,10 @@ Task 2: Create a 3 node Kubernetes cluster and run a simple service.
 
 Goto Cloud Shell
 
-gcloud container clusters create nucleus-backend \
-          --num-nodes 1 \
-          --network nucleus-vpc \
-          --region us-east1
+gcloud container clusters create nucleus-backend \   
+          --num-nodes 1 \    
+          --network nucleus-vpc \    
+          --region us-east1 
 gcloud container clusters get-credentials nucleus-backend \
           --region us-east1
 
