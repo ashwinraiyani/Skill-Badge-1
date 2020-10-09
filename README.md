@@ -13,6 +13,7 @@ Navigation menu > Compute engine > VM Instance -> Create
 Goto Cloud Shell
 
 gcloud container clusters create nucleus-backend --num-nodes 1 --network nucleus-vpc --region us-east1 
+
 gcloud container clusters get-credentials nucleus-backend  --region us-east1
 
 kubectl create deployment hello-server --image=gcr.io/google-samples/hello-app:2.0
