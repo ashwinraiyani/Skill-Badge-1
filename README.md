@@ -1,13 +1,14 @@
 # Skill-Badge-1 Getting Started: Create and Manage Cloud Resources
 
-Task 1: Create an instance.
+# Task 1: Create an instance.
 
 Navigation menu > Compute engine > VM Instance -> Create 
 
 ![screen](https://github.com/ashwinraiyani/Skill-Badge-1/blob/master/image.png)
 
+**Check the Progess**
   
-Task 2: Create a 3 node Kubernetes cluster and run a simple service.
+# Task 2: Create a 3 node Kubernetes cluster and run a simple service.
 
 Goto Cloud Shell
 
@@ -25,9 +26,9 @@ kubectl expose deployment hello-server \
           --type=LoadBalancer \   
           --port 8080
           
-    
+ **Check the Progess**   
           
-Task 3: Create an HTTP(s) Load Balancer in front of two web servers.
+# Task 3: Create an HTTP(s) Load Balancer in front of two web servers.
 
           cat << EOF > startup.sh
           #! /bin/bash
