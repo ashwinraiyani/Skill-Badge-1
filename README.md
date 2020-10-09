@@ -30,6 +30,8 @@ kubectl expose deployment hello-server \
           
 # Task 3: Create an HTTP(s) Load Balancer in front of two web servers.
 
+In Cloud Shell run the following codes.
+
           cat << EOF > startup.sh
           #! /bin/bash
           apt-get update
@@ -64,6 +66,7 @@ gcloud compute instance-groups managed \
           set-named-ports web-server-group \    
           --named-ports http:80 \   
           --region us-east1
+          
 6 .Create a backend service and attach the manged instance group :
 gcloud compute backend-services create web-server-backend \   
           --protocol HTTP \   
@@ -73,6 +76,7 @@ gcloud compute backend-services add-backend web-server-backend \
           --instance-group web-server-group \   
           --instance-group-region us-east1 \    
           --global
+          
 7 .Create a URL map and target HTTP proxy to route requests to your URL map :
 gcloud compute url-maps create web-server-map \   
           --default-service web-server-backend
