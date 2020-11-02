@@ -66,6 +66,8 @@ gcloud compute backend-services create web-server-backend \
           --protocol HTTP \   
           --http-health-checks http-basic-check \   
           --global
+          
+          
 gcloud compute backend-services add-backend web-server-backend \    
           --instance-group web-server-group \   
           --instance-group-region us-east1 \    
@@ -83,6 +85,8 @@ gcloud compute forwarding-rules create http-content-rule \
         --global \    
         --target-http-proxy http-lb-proxy \   
         --ports 80
+
+
 gcloud compute forwarding-rules list
 
 Wait for 5-7 minutes(depend on internet speed) and then check progress 
